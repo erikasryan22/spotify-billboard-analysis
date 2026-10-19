@@ -1,0 +1,6 @@
+pandas
+numpy
+matplotlib
+seaborn
+gdown>=5.2,<6
+jupyterlab
