@@ -36,6 +36,8 @@ python -m pip install -r requirements.txt
 jupyter lab
 ```
 
+Before **Run All**, download the two CSVs from the [original sources](#data-sources) into `data/` using the steps below. This is the recommended route; Drive mirrors are an optional fallback.
+
 Start Jupyter from the activated `spotify` environment, open [notebooks/analysis.ipynb](notebooks/analysis.ipynb), and select **Run → Run All Cells**. Save the notebook afterward to retain its tables and plots.
 
 The notebook works when Jupyter starts in either the project root or the notebooks folder. Keep the src folder alongside notebooks; downloading the notebook alone is insufficient. No Colab account or system unzip command is needed.
@@ -47,7 +49,7 @@ For later sessions, activate the spotify environment and launch JupyterLab from 
 | Path | Purpose |
 | --- | --- |
 | notebooks/analysis.ipynb | Questions, exploratory analysis, static plots and calculated Key findings |
-| src/data_loader.py | Local CSV reuse, Drive download, archive reading and manual-download guidance |
+| src/data_loader.py | Local CSV reuse, cached ZIP reading and optional Drive fallback |
 | src/cleaning.py | Spotify feature validation, popularity aggregation and chart-row cleaning |
 | src/matching.py | Text normalization and conservative song–artist matching |
 | data/ | Generated local data folder; excluded from Git |
@@ -62,14 +64,25 @@ For later sessions, activate the spotify environment and launch JupyterLab from 
 | SpotifyFeatures.csv | [Spotify Tracks DB — Zaheen Hamidani, Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db) | Check the upstream dataset license. |
 | hot-100-current.csv | [UT Data Billboard archive](https://github.com/utdata/rwd-billboard-data) | Repository code: [MIT](https://github.com/utdata/rwd-billboard-data/blob/main/LICENSE); check upstream terms for chart data. |
 
-Place CSVs obtained from the original sources in data/ using the exact filenames above. They will be reused without downloading anything.
+### Download from the original sources
 
-If local CSVs are absent, the loader tries these existing Drive mirrors:
+1. Create a `data/` folder in the project root, alongside `notebooks/` and `src/`.
+2. **Spotify:** open the [Kaggle dataset page](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db), sign in if required, and download the dataset. Extract the archive and copy `SpotifyFeatures.csv` into `data/`.
+3. **Billboard:** open UT Data's [hot-100-current.csv](https://github.com/utdata/rwd-billboard-data/blob/main/data-out/hot-100-current.csv), select **Download raw file**, and save it as `data/hot-100-current.csv`.
+4. Keep these exact filenames, then run `notebooks/analysis.ipynb`. When both CSVs are present, the loader reuses them without downloading anything.
+
+The saved findings use a Billboard snapshot through **2024-06-08**. Current upstream releases may contain newer data and produce different results.
+
+### Optional Drive fallback
+
+Use the original-source downloads above first. If they are temporarily unavailable and upstream terms permit using the mirrored copies, these existing links are a last-resort fallback:
 
 - [Spotify archive](https://drive.google.com/file/d/1KvG1T9rL6gOqmOO-VDOpO4PhKUdFU2Lh/view)
 - [Hot 100 archive](https://drive.google.com/file/d/1iqefQOCEMdTs4lKZTguRexnGYi0TWCHO/view)
 
-Drive mirrors depend on public access and quota. If a download fails, download the corresponding CSV manually from an original source, place it in data/, and rerun the loading cell. Valid downloaded ZIPs are also reused. The mirrored snapshots may differ from current upstream releases.
+The loader checks for local CSVs first, then reuses valid cached ZIPs. If an input is still missing, it automatically tries its Drive mirror. To use the recommended original-source route, place both CSVs in `data/` before running the notebook.
+
+Drive mirrors depend on public access and quota and may stop working. If a mirror fails, use the original-source steps above and rerun the loading cell. Mirrored snapshots may differ from current upstream releases.
 
 Raw CSVs and source archives are not included in the repository.
 
