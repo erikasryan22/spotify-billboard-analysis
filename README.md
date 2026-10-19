@@ -61,13 +61,13 @@ For later sessions, activate the spotify environment and launch JupyterLab from 
 
 | Input | Original source | License reference |
 | --- | --- | --- |
-| SpotifyFeatures.csv | [Spotify Tracks DB — Zaheen Hamidani, Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db) | Check the upstream dataset license. |
+| SpotifyFeatures.csv | [Spotify Tracks DB — Zaheen Hamidani, Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db) | License listed on Kaggle: Unknown. Used here for educational analysis only; the data is not redistributed in this repository. |
 | hot-100-current.csv | [UT Data Billboard archive](https://github.com/utdata/rwd-billboard-data) | Repository code: [MIT](https://github.com/utdata/rwd-billboard-data/blob/main/LICENSE); check upstream terms for chart data. |
 
 ### Download from the original sources
 
 1. Create a `data/` folder in the project root, alongside `notebooks/` and `src/`.
-2. **Spotify:** open the [Kaggle dataset page](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db), sign in if required, and download the dataset. Extract the archive and copy `SpotifyFeatures.csv` into `data/`.
+2. **Spotify:** Open the [Kaggle dataset page](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db), sign in if required, and download the dataset. Extract the archive and copy `SpotifyFeatures.csv` into `data/`.
 3. **Billboard:** open UT Data's [hot-100-current.csv](https://github.com/utdata/rwd-billboard-data/blob/main/data-out/hot-100-current.csv), select **Download raw file**, and save it as `data/hot-100-current.csv`.
 4. Keep these exact filenames, then run `notebooks/analysis.ipynb`. When both CSVs are present, the loader reuses them without downloading anything.
 
@@ -93,6 +93,7 @@ See the notebook for coverage by chart decade, the full feature and rank-group c
 ## Interpretation limits
 
 - Results describe only the matched subset. Unmatched songs can reflect recordings absent from the Spotify sample, differences in song titles or artist credits, or ambiguous identities excluded by the matching rules; these reasons were not separately quantified.
+- Because only about 22% of Hot 100 song–artist keys were matched, the matched sample may not be representative of the full chart; findings may be biased toward recordings that are present in the Spotify dataset.
 - Coverage varies by chart decade. In the saved run, only **61/3,024 (2.0%)** song–artist keys matched for the 2020s. This decade is weakly represented and should not be treated as representative of all its Hot 100 songs.
 - Chart decade means chart presence, not release date. The 1950s cover only 1958–59, and boundary decades can be incomplete.
 - Matching preserves full artist credits, accents and version words. Ambiguous Spotify identities are excluded, and differently credited collaborations can remain unmatched. Matching names does not verify historical recording versions.
